@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DNS Blocklist Builder</title>
+<meta name="description" content="Generate DNS blocklists for dnsmasq, Pi-hole, AdGuard, Unbound and more. Block disinformation, propaganda and conspiracy sites. Open Source, no tracking.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1117;--bg2:#161b22;--bg3:#21262d;
+  --border:#30363d;--border2:#444c56;
+  --text:#e6edf3;--text2:#8b949e;--text3:#6e7681;
+  --accent:#58a6ff;--accent-bg:#1f3048;
+  --green:#3fb950;--green-bg:#1a2f1e;
+  --red:#f85149;--red-bg:#3d1a1a;
+  --amber:#d29922;--amber-bg:#2d2008;
+  --purple:#bc8cff;--purple-bg:#2a1f3d;
+  --pink:#ff7eb6;--pink-bg:#3d1f2d;
+  --teal:#39d353;--teal-bg:#1a2e1e;
+  --coral:#ff8c69;--coral-bg:#3d2419;
+  --mono:'JetBrains Mono','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --radius:8px;--radius-lg:12px;
+}
+@media(prefers-color-scheme:light){
+  :root{
+    --bg:#f6f8fa;--bg2:#ffffff;--bg3:#f0f1f3;
+    --border:#d0d7de;--border2:#b0b7be;
+    --text:#24292f;--text2:#57606a;--text3:#8c959f;
+    --accent:#0969da;--accent-bg:#ddf4ff;
+    --green:#1a7f37;--green-bg:#dafbe1;
+    --amber:#9a6700;--amber-bg:#fff8c5;
+    --purple:#8250df;--purple-bg:#fbefff;
+    --pink:#bf3989;--pink-bg:#ffeff7;
+    --teal:#0f6f52;--teal-bg:#d2feea;
+    --coral:#cf4f22;--coral-bg:#fff1eb;
+    --red:#cf222e;--red-bg:#ffebe9;
+  }
+}
+html,body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.page{max-width:900px;margin:0 auto;padding:2rem 1rem 4rem}
+
+/* Header */
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:var(--radius);display:flex;align-items:center;justify-content:center}
+.logo-icon svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.logo-text h1{font-size:18px;font-weight:600;letter-spacing:-.3px}
+.logo-text p{font-size:12px;color:var(--text2);margin-top:2px;font-family:var(--mono)}
+.lang-switcher{display:flex;gap:4px;flex-wrap:wrap}
+.lang-btn{padding:4px 10px;font-size:12px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.lang-btn:hover{border-color:var(--border2);color:var(--text)}
+.lang-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start}
+@media(max-width:700px){.layout{grid-template-columns:1fr}}
+
+/* Sections */
+.section-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Categories */
+.cats{display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem}
+.cat{border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s;user-select:none}
+.cat:hover{border-color:var(--border2);background:var(--bg3)}
+.cat.active{border-color:var(--accent);background:var(--accent-bg)}
+.cat-row1{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.cat-check{width:16px;height:16px;border:1.5px solid var(--border2);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.cat.active .cat-check{background:var(--accent);border-color:var(--accent)}
+.cat-check svg{width:10px;height:10px;stroke:white;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;display:none}
+.cat.active .cat-check svg{display:block}
+.cat-name{font-size:13px;font-weight:500}
+.cat.active .cat-name{color:var(--accent)}
+.cat-badge{margin-left:auto;font-size:10px;font-family:var(--mono);padding:2px 7px;border-radius:12px;border:1px solid var(--border);color:var(--text3)}
+.cat.active .cat-badge{border-color:var(--accent);color:var(--accent)}
+.cat-row2{display:flex;align-items:center;gap:6px}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.cat-desc{font-size:11px;color:var(--text2);line-height:1.4}
+
+/* Sidebar */
+.sidebar{position:sticky;top:1rem}
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem;margin-bottom:1rem}
+
+/* Format */
+.fmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:1rem}
+.fmt-btn{padding:8px;font-size:11px;font-family:var(--mono);border:1px solid var(--border);border-radius:var(--radius);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;text-align:left;line-height:1.3}
+.fmt-btn:hover{background:var(--bg3);color:var(--text)}
+.fmt-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.fmt-btn span{display:block;font-size:10px;color:var(--text3);margin-top:2px;font-family:var(--sans)}
+.fmt-btn.active span{color:var(--accent)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:1rem}
+.stat{background:var(--bg3);border-radius:var(--radius);padding:8px 10px;text-align:center}
+.stat-n{font-size:20px;font-weight:600;font-family:var(--mono);color:var(--text)}
+.stat-l{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* Preview */
+.preview-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;max-height:200px;overflow-y:auto;margin-bottom:1rem}
+.preview-box pre{font-size:10px;line-height:1.7;font-family:var(--mono);white-space:pre;overflow-x:auto}
+.c-cmt{color:var(--text3)}
+.c-dom{color:var(--green)}
+.c-key{color:var(--amber)}
+.preview-empty{font-size:12px;color:var(--text3);text-align:center;padding:1.5rem 0;font-family:var(--mono)}
+
+/* Buttons */
+.btn-primary{width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;font-family:var(--sans)}
+.btn-primary:hover{opacity:.85}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-secondary{width:100%;padding:8px;background:transparent;color:var(--text2);border:1px solid var(--border);border-radius:var(--radius);font-size:12px;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.btn-secondary:hover{background:var(--bg3);color:var(--text)}
+.btn-secondary.copied{color:var(--green);border-color:var(--green)}
+
+/* Issue link */
+.issue-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem;text-align:center}
+.issue-icon{font-size:24px;margin-bottom:6px}
+.issue-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.issue-desc{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+.btn-issue{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--green-bg);color:var(--green);border:1px solid var(--green);border-radius:var(--radius);font-size:12px;cursor:pointer;transition:opacity .15s;font-family:var(--sans)}
+.btn-issue:hover{opacity:.8}
+.btn-issue svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
+
+/* Footer */
+.footer{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-left{font-size:11px;color:var(--text3)}
+.footer-links{display:flex;gap:12px}
+.footer-links a{font-size:11px;color:var(--text2)}
+
+/* Select all */
+.select-row{display:flex;gap:6px;margin-bottom:10px}
+.select-btn{font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.select-btn:hover{background:var(--bg3);color:var(--text)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="logo-text">
+      <h1 id="t-title">DNS Blocklist Builder</h1>
+      <p id="t-sub">dnsmasq · hosts · Pi-hole · RPZ</p>
+    </div>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('de')">DE</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('it')">IT</button>
+    <button class="lang-btn" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+
+<div class="layout">
+<div class="main">
+  <div class="section-label" id="t-cat-label">Kategorien wählen</div>
+  <div class="select-row">
+    <button class="select-btn" onclick="selectAll()" id="t-all">Alle auswählen</button>
+    <button class="select-btn" onclick="selectNone()" id="t-none">Keine</button>
+  </div>
+  <div class="cats" id="cats"></div>
+</div>
+
+<div class="sidebar">
+  <div class="panel">
+    <div class="section-label" id="t-fmt-label">Format</div>
+    <div class="fmt-grid" id="fmts"></div>
+
+    <div class="section-label" id="t-stats-label">Statistik</div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n" id="s-d">0</div><div class="stat-l" id="t-s-d">Domains</div></div>
+      <div class="stat"><div class="stat-n" id="s-c">0</div><div class="stat-l" id="t-s-c">Kategorien</div></div>
+      <div class="stat"><div class="stat-n" id="s-l">0</div><div class="stat-l" id="t-s-l">Zeilen</div></div>
+    </div>
+
+    <div class="section-label" id="t-prev-label">Vorschau</div>
+    <div class="preview-box" id="preview">
+      <div class="preview-empty" id="t-empty">← Kategorie wählen</div>
+    </div>
+
+    <button class="btn-primary" id="btn-dl" onclick="download()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span id="t-dl">Download blocklist</span>
+    </button>
+    <button class="btn-secondary" id="btn-copy" onclick="copyClip()">
+      <span id="t-copy">In Zwischenablage kopieren</span>
+    </button>
+  </div>
+
+  <div class="issue-box">
+    <div class="issue-icon">🐛</div>
+    <div class="issue-title" id="t-issue-title">Domain vorschlagen</div>
+    <div class="issue-desc" id="t-issue-desc">Kennst du eine fehlende Domain oder eine neue Kategorie? Erstelle ein GitHub Issue!</div>
+    <button class="btn-issue" onclick="openIssue()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="t-issue-btn">GitHub Issue öffnen</span>
+    </button>
+  </div>
+</div>
+</div>
+
+<div class="footer">
+  <div class="footer-left" id="t-footer">Open Source · MIT Lizenz · Contributions willkommen</div>
+  <div class="footer-links">
+    <a href="https://github.com/DanielEnki420/dns-blocklist-builder" target="_blank">GitHub</a>
+    <a href="https://github.com/DanielEnki420/dns-blocklist-builder/issues/new" target="_blank">Issue</a>
+    <a href="https://github.com/DanielEnki420/dns-blocklist-builder/blob/main/README.md" target="_blank">Docs</a>
+  </div>
+</div>
+</div>
+
+<script>
+const I18N={
+  de:{title:'DNS Blocklist Builder',sub:'dnsmasq · hosts · Pi-hole · RPZ',catLabel:'Kategorien wählen',fmtLabel:'Format',statsLabel:'Statistik',prevLabel:'Vorschau',empty:'← Kategorie wählen',dl:'Download blocklist',copy:'In Zwischenablage kopieren',copied:'Kopiert!',all:'Alle auswählen',none:'Keine',sd:'Domains',sc:'Kategorien',sl:'Zeilen',issueTitle:'Domain vorschlagen',issueDesc:'Kennst du eine fehlende Domain oder eine neue Kategorie? Erstelle ein GitHub Issue!',issueBtn:'GitHub Issue öffnen',footer:'Open Source · MIT Lizenz · Contributions willkommen'},
+  en:{title:'DNS Blocklist Builder',sub:'dnsmasq · hosts · Pi-hole · RPZ',catLabel:'Select categories',fmtLabel:'Format',statsLabel:'Statistics',prevLabel:'Preview',empty:'← Select a category',dl:'Download blocklist',copy:'Copy to clipboard',copied:'Copied!',all:'Select all',none:'None',sd:'Domains',sc:'Categories',sl:'Lines',issueTitle:'Suggest a domain',issueDesc:'Know a missing domain or category? Open a GitHub issue!',issueBtn:'Open GitHub Issue',footer:'Open Source · MIT License · Contributions welcome'},
+  it:{title:'DNS Blocklist Builder',sub:'dnsmasq · hosts · Pi-hole · RPZ',catLabel:'Scegli categorie',fmtLabel:'Formato',statsLabel:'Statistiche',prevLabel:'Anteprima',empty:'← Seleziona una categoria',dl:'Scarica blocklist',copy:'Copia negli appunti',copied:'Copiato!',all:'Seleziona tutto',none:'Nessuno',sd:'Domini',sc:'Categorie',sl:'Righe',issueTitle:'Proponi un dominio',issueDesc:'Conosci un dominio mancante o una nuova categoria? Apri una Issue su GitHub!',issueBtn:'Apri Issue GitHub',footer:'Open Source · Licenza MIT · Contributi benvenuti'},
+  es:{title:'DNS Blocklist Builder',sub:'dnsmasq · hosts · Pi-hole · RPZ',catLabel:'Elegir categorías',fmtLabel:'Formato',statsLabel:'Estadísticas',prevLabel:'Vista previa',empty:'← Elige una categoría',dl:'Descargar blocklist',copy:'Copiar al portapapeles',copied:'¡Copiado!',all:'Seleccionar todo',none:'Ninguno',sd:'Dominios',sc:'Categorías',sl:'Líneas',issueTitle:'Sugerir un dominio',issueDesc:'¿Conoces un dominio que falta? ¡Abre un Issue en GitHub!',issueBtn:'Abrir Issue en GitHub',footer:'Open Source · Licencia MIT · Contribuciones bienvenidas'},
+  fr:{title:'DNS Blocklist Builder',sub:'dnsmasq · hosts · Pi-hole · RPZ',catLabel:'Choisir les catégories',fmtLabel:'Format',statsLabel:'Statistiques',prevLabel:'Aperçu',empty:'← Choisir une catégorie',dl:'Télécharger la blocklist',copy:'Copier dans le presse-papiers',copied:'Copié!',all:'Tout sélectionner',none:'Aucun',sd:'Domaines',sc:'Catégories',sl:'Lignes',issueTitle:'Proposer un domaine',issueDesc:'Vous connaissez un domaine manquant ? Ouvrez une Issue GitHub !',issueBtn:'Ouvrir une Issue GitHub',footer:'Open Source · Licence MIT · Contributions bienvenues'},
+  pt:{title:'DNS Blocklist Builder',sub:'dnsmasq · hosts · Pi-hole · RPZ',catLabel:'Escolher categorias',fmtLabel:'Formato',statsLabel:'Estatísticas',prevLabel:'Pré-visualização',empty:'← Escolha uma categoria',dl:'Baixar blocklist',copy:'Copiar para área de transferência',copied:'Copiado!',all:'Selecionar tudo',none:'Nenhum',sd:'Domínios',sc:'Categorias',sl:'Linhas',issueTitle:'Sugerir um domínio',issueDesc:'Conhece um domínio em falta? Abra uma Issue no GitHub!',issueBtn:'Abrir Issue no GitHub',footer:'Open Source · Licença MIT · Contribuições bem-vindas'},
+};
+
+const CATS=[
+  {id:'rt',color:'#f85149',bg:'#3d1a1a',name:{de:'Russische Propaganda',en:'Russian Propaganda',it:'Propaganda russa',es:'Propaganda rusa',fr:'Propagande russe',pt:'Propaganda russa'},desc:{de:'RT, Sputnik, TASS, Russia Today, Voice of Europe',en:'RT, Sputnik, TASS, Russia Today, Voice of Europe',it:'RT, Sputnik, TASS, Russia Today',es:'RT, Sputnik, TASS, Russia Today',fr:'RT, Sputnik, TASS, Russia Today',pt:'RT, Sputnik, TASS, Russia Today'},domains:['rt.com','de.rt.com','rt.de','rt.uk','rt.fr','rt.es','rt.ru','sputniknews.com','sputnik-news.de','sputnikglobe.com','sputniknews.lat','sputniknews.fr','sputniknews.it','sputnik.by','ria.ru','tass.ru','tass.com','russland.news','ukraina.ru','news-front.info','anna-news.info','topwar.ru','voiceofeurope.com','southfront.org','geopolitika.news','strategic-culture.org','orientalreview.org','globalresearch.ca','katehon.com','stalkerzone.org','thedailybeast.ru','riafan.ru','regnum.ru','eurasia.expert','rubaltic.ru','baltnews.com','rusnext.ru','realtribune.ru','slavyangrad.org','inforeactor.ru','polit.info']},
+  {id:'epoch',color:'#d29922',bg:'#2d2008',name:{de:'Epoch Times / Falun Gong',en:'Epoch Times / Falun Gong',it:'Epoch Times / Falun Gong',es:'Epoch Times / Falun Gong',fr:'Epoch Times / Falun Gong',pt:'Epoch Times / Falun Gong'},desc:{de:'NTD, Epoch Times, The BL, Shen Yun',en:'NTD, Epoch Times, The BL, Shen Yun',it:'NTD, Epoch Times, The BL',es:'NTD, Epoch Times, The BL',fr:'NTD, Epoch Times, The BL',pt:'NTD, Epoch Times, The BL'},domains:['epochtimes.de','epochtimes.com','epochtimes.fr','epochtimes.co.uk','epochtimes.it','epochtimes.es','epochtimes.com.br','epochtimes.nl','epochtimes.pl','theepochtimes.com','theepochtimes.fr','ntd.com','ntdtv.com','ntdtvusa.com','ntd.tv','thebl.com','thebl.tv','visiontimes.com','visiontimes.de','visiontimes.fr','zhengjian.org','minghui.org','pureinsight.org','clearwisdom.net','falundafa.org','en.minghui.org','de.minghui.org','fr.minghui.org','es.minghui.org','pt.minghui.org']},
+  {id:'compact',color:'#ff8c69',bg:'#3d2419',name:{de:'Rechtsextrem (DACH)',en:'Far-Right (DACH)',it:'Estrema destra (DACH)',es:'Ultraderecha (DACH)',fr:'Extrême droite (DACH)',pt:'Extrema-direita (DACH)'},desc:{de:'Compact, Junge Freiheit, PI-News, AUF1, Wochenblick',en:'Compact, Junge Freiheit, PI-News, AUF1, Wochenblick',it:'Compact, Junge Freiheit, PI-News',es:'Compact, Junge Freiheit, PI-News',fr:'Compact, Junge Freiheit, PI-News',pt:'Compact, Junge Freiheit, PI-News'},domains:['compact-online.de','junge-freiheit.de','pi-news.net','freie-welt.net','ef-magazin.de','eigentumlich-frei.de','journalistenwatch.com','unzensuriert.de','blu-news.org','politikstube.de','opposition24.com','exxpress.at','wochenblick.at','heimatkurier.at','tkp.at','auf1.tv','auf1.info','report24.news','alles-schallundrauch.blogspot.com','legitim.ch','schweizerzeit.ch','transition-news.org','apolut.net','rubikon.news','tichyseinblick.de','reitschuster.de','achgut.com','tagesstimme.com','ansage.org','philosophia-perennis.com','m-online.net','qpress.de','kopp-online.com','kopp-verlag.de','mmnews.de','dieter-nuhr.de','volker-pispers.de','bruchpiloten.de']},
+  {id:'farright_intl',color:'#bc8cff',bg:'#2a1f3d',name:{de:'Rechtsextrem (International)',en:'Far-Right (International)',it:'Estrema destra (Internazionale)',es:'Ultraderecha (Internacional)',fr:'Extrême droite (International)',pt:'Extrema-direita (Internacional)'},desc:{de:'InfoWars, Breitbart, Daily Stormer, Gateway Pundit',en:'InfoWars, Breitbart, Daily Stormer, Gateway Pundit',it:'InfoWars, Breitbart, Daily Stormer',es:'InfoWars, Breitbart, Daily Stormer',fr:'InfoWars, Breitbart, Daily Stormer',pt:'InfoWars, Breitbart, Daily Stormer'},domains:['infowars.com','infowars.net','prisonplanet.com','breitbart.com','dailystormer.name','dailystormer.su','stormfront.org','thegatewaypundit.com','wnd.com','100percentfedup.com','hannity.com','americanthinker.com','thepostmillennial.com','lifesitenews.com','churchmilitant.com','oann.com','newsmax.com','realnews24.com','realnewsrightnow.com','neonnettle.com','newspunch.com','yournewswire.com','pjmedia.com','townhall.com','redstate.com','theblaze.com','tpusa.com','americafirstpolicy.com','vdare.com','amren.com','therightstuff.biz','nationalvanguard.org','dailywire.com','thefederalist.com']},
+  {id:'conspiracy',color:'#ff7eb6',bg:'#3d1f2d',name:{de:'Verschwörungstheorien',en:'Conspiracy Theories',it:'Teorie del complotto',es:'Teorías de conspiración',fr:'Théories du complot',pt:'Teorias da conspiração'},desc:{de:'NaturalNews, Rense, BeforeItsNews, ZeroHedge',en:'NaturalNews, Rense, BeforeItsNews, ZeroHedge',it:'NaturalNews, Rense, BeforeItsNews',es:'NaturalNews, Rense, BeforeItsNews',fr:'NaturalNews, Rense, BeforeItsNews',pt:'NaturalNews, Rense, BeforeItsNews'},domains:['naturalnews.com','rense.com','beforeitsnews.com','zerohedge.com','activistpost.com','investmentwatchblog.com','sgtreport.com','prepperwebsite.com','thenewamerican.com','coreysdigs.com','operationdisclosureofficial.com','4chan.org','8kun.top','patriotsnet.com','qalerts.app','qagg.news','qmap.pub','qanon.pub','thestorm.pub','inteldinarchronicles.blogspot.com','dinarrecaps.com','dinar-guru.com','dinardetectives.com','uncensored.co.nz','whatdoesitmean.com','rumormillnews.com','fourwinds10.com','rense.com','henrymakow.com','abundanthope.net','verdensalt.dk']},
+  {id:'antivax',color:'#39d353',bg:'#1a2e1e',name:{de:'Anti-Vax / Medizin-Desinformation',en:'Anti-Vax / Medical Disinfo',it:'Anti-Vax / Disinformazione medica',es:'Anti-Vax / Desinformación médica',fr:'Anti-Vax / Désinformation médicale',pt:'Anti-Vax / Desinformação médica'},desc:{de:'Impf-kritische Desinformation, Pseudo-Medizin',en:'Anti-vaccine disinfo, pseudo-medicine sites',it:'Disinformazione vaccini, pseudo-medicina',es:'Desinformación vacunas, pseudo-medicina',fr:'Désinformation vaccins, pseudo-médecine',pt:'Desinformação vacinas, pseudo-medicina'},domains:['impfkritik.de','impfen-nein-danke.de','deswegen.net','mwgfd.org','aerzte-fuer-aufklaerung.de','corona-blog.net','corona-doku.de','leber.com','stoppt-die-impfung.de','kla.tv','kla.tv','infokrieg.tv','tele.bio','journalistenwatch.com','endthevax.com','childrenshealthdefense.org','mercola.com','greenmedinfo.com','vaxtruth.org','mothering.com','nvic.org','vaccinationinformationnetwork.com','vaxxed.com','thinktwice.com','whale.to','ageofautism.com','healthimpactnews.com','vaccinedamage.news','drrobertyoung.com','stopworldcontrol.com','humansarefree.com']},
+  {id:'chinese_state',color:'#58a6ff',bg:'#1f3048',name:{de:'Chinesische Staatspropaganda',en:'Chinese State Propaganda',it:'Propaganda di Stato cinese',es:'Propaganda estatal china',fr:'Propagande d\'État chinoise',pt:'Propaganda estatal chinesa'},desc:{de:'CGTN, Xinhua, China Daily, Global Times',en:'CGTN, Xinhua, China Daily, Global Times',it:'CGTN, Xinhua, China Daily, Global Times',es:'CGTN, Xinhua, China Daily, Global Times',fr:'CGTN, Xinhua, China Daily, Global Times',pt:'CGTN, Xinhua, China Daily, Global Times'},domains:['cgtn.com','cgtn.eu','xinhuanet.com','xinhua.net','chinadaily.com.cn','globaltimes.cn','people.cn','people.com.cn','chinanews.com.cn','81.cn','guancha.cn','huanqiu.com','thepaper.cn','xhpfmapi.com','news.cn','stdaily.com','legaldaily.com.cn','pladaily.com.cn','wenweipo.com','takungpao.com','hkcd.com']},
+  {id:'climate_denial',color:'#d29922',bg:'#2d2008',name:{de:'Klimaleugnung',en:'Climate Change Denial',it:'Negazionismo climatico',es:'Negacionismo climático',fr:'Négationnisme climatique',pt:'Negacionismo climático'},desc:{de:'EIKE, CFACT, Heartland Institute, Watts Up',en:'EIKE, CFACT, Heartland Institute, Watts Up With That',it:'EIKE, CFACT, Heartland Institute',es:'EIKE, CFACT, Heartland Institute',fr:'EIKE, CFACT, Heartland Institute',pt:'EIKE, CFACT, Heartland Institute'},domains:['eike-klima-energie.eu','cfact.org','heartland.org','wattsupwiththat.com','climatedepot.com','joannenova.com.au','climatechangedispatch.com','climateaudit.org','notalotofpeopleknowthat.wordpress.com','noclimate.org','climate.news','climatesciencenews.com','co2coalition.org','friendsofscience.org','globalwarmingpolicy.org','thegwpf.com','climateconversation.wordpress.com','nzcpr.com','rclutz.com','c3headlines.com','realclimatescience.com','cliffmass.blogspot.com','hockeyschtick.blogspot.com']},
+];
+
+const FMTS=[
+  {id:'dnsmasq',label:'dnsmasq',desc:'.conf · OpenWrt/Xiaomi',ext:'conf',fn:(d)=>`address=/${d}/0.0.0.0`},
+  {id:'hosts',label:'hosts',desc:'/etc/hosts · Universal',ext:'txt',fn:(d)=>`0.0.0.0 ${d}`},
+  {id:'pihole',label:'Pi-hole',desc:'Adlist · Plain domains',ext:'txt',fn:(d)=>d},
+  {id:'rpz',label:'RPZ Zone',desc:'BIND9 · Response Policy',ext:'txt',fn:(d)=>`${d}. CNAME .`},
+  {id:'adguard',label:'AdGuard',desc:'Home · Filter rules',ext:'txt',fn:(d)=>`||${d}^`},
+  {id:'unbound',label:'Unbound',desc:'local-zone blocked',ext:'conf',fn:(d)=>`local-zone: "${d}." static`},
+];
+
+let active=new Set();
+let fmt=FMTS[0];
+let lang='de';
+
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l;
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['de','en','it','es','fr','pt'][i]===l);
+  });
+  const t=I18N[l];
+  document.getElementById('t-title').textContent=t.title;
+  document.getElementById('t-sub').textContent=t.sub;
+  document.getElementById('t-cat-label').childNodes[0].textContent=t.catLabel+' ';
+  document.getElementById('t-fmt-label').childNodes[0].textContent=t.fmtLabel+' ';
+  document.getElementById('t-stats-label').childNodes[0].textContent=t.statsLabel+' ';
+  document.getElementById('t-prev-label').childNodes[0].textContent=t.prevLabel+' ';
+  document.getElementById('t-dl').textContent=t.dl;
+  document.getElementById('t-copy').textContent=t.copy;
+  document.getElementById('t-all').textContent=t.all;
+  document.getElementById('t-none').textContent=t.none;
+  document.getElementById('t-s-d').textContent=t.sd;
+  document.getElementById('t-s-c').textContent=t.sc;
+  document.getElementById('t-s-l').textContent=t.sl;
+  document.getElementById('t-issue-title').textContent=t.issueTitle;
+  document.getElementById('t-issue-desc').textContent=t.issueDesc;
+  document.getElementById('t-issue-btn').textContent=t.issueBtn;
+  document.getElementById('t-footer').textContent=t.footer;
+  document.getElementById('t-empty').textContent=t.empty;
+  renderCats();
+  renderPreview();
+}
+
+function renderCats(){
+  document.getElementById('cats').innerHTML=CATS.map(c=>`
+    <div class="cat${active.has(c.id)?' active':''}" onclick="toggleCat('${c.id}')" 
+         tabindex="0" role="checkbox" aria-checked="${active.has(c.id)}"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCat('${c.id}')}">
+      <div class="cat-row1">
+        <div class="cat-check" aria-hidden="true"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+        <span class="cat-name">${esc(c.name[lang]||c.name.en)}</span>
+        <span class="cat-badge">${c.domains.length}</span>
+      </div>
+      <div class="cat-row2">
+        <div class="cat-dot" style="background:${c.color}"></div>
+        <span class="cat-desc">${esc(c.desc[lang]||c.desc.en)}</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderFmts(){
+  document.getElementById('fmts').innerHTML=FMTS.map(f=>`
+    <button class="fmt-btn${fmt.id===f.id?' active':''}" onclick="setFmt('${f.id}')">
+      ${f.label}<span>${f.desc}</span>
+    </button>`).join('');
+}
+
+function getDomains(){return CATS.filter(c=>active.has(c.id)).flatMap(c=>c.domains);}
+
+function getContent(){
+  const sel=CATS.filter(c=>active.has(c.id));
+  const domains=sel.flatMap(c=>c.domains);
+  if(!domains.length)return '';
+  const now=new Date().toISOString().split('T')[0];
+  const lines=[
+    `# ============================================================`,
+    `# DNS Blocklist – Format: ${fmt.label}`,
+    `# Generated: ${now}`,
+    `# Categories: ${sel.map(c=>c.name.en).join(', ')}`,
+    `# Domains: ${domains.length}`,
+    `# Generator: https://github.com/DanielEnki420/dns-blocklist-builder`,
+    `# Issues/Suggestions: https://github.com/DanielEnki420/dns-blocklist-builder/issues`,
+    `# ============================================================`,
+    ``
+  ];
+  sel.forEach(c=>{
+    lines.push(`# --- ${c.name.en} (${c.domains.length} domains) ---`);
+    c.domains.forEach(d=>lines.push(fmt.fn(d)));
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+
+function renderPreview(){
+  const sel=CATS.filter(c=>active.has(c.id));
+  const domains=getDomains();
+  document.getElementById('s-d').textContent=domains.length;
+  document.getElementById('s-c').textContent=sel.length;
+  document.getElementById('s-l').textContent=getContent().split('\n').length||0;
+  const prev=document.getElementById('preview');
+  if(!domains.length){
+    prev.innerHTML=`<div class="preview-empty" id="t-empty">${I18N[lang].empty}</div>`;
+    return;
+  }
+  const html=getContent().split('\n').map(l=>{
+    if(l.startsWith('#==='))return`<span class="c-cmt">${esc(l)}</span>`;
+    if(l.startsWith('#'))return`<span class="c-cmt">${esc(l)}</span>`;
+    if(l.startsWith('address=')||l.startsWith('0.0.0.0')||l.startsWith('||')||l.startsWith('local-zone'))return`<span class="c-dom">${esc(l)}</span>`;
+    if(l.trim())return`<span class="c-key">${esc(l)}</span>`;
+    return'';
+  }).join('\n');
+  prev.innerHTML=`<pre>${html}</pre>`;
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function toggleCat(id){active.has(id)?active.delete(id):active.add(id);renderCats();renderPreview();}
+function selectAll(){CATS.forEach(c=>active.add(c.id));renderCats();renderPreview();}
+function selectNone(){active.clear();renderCats();renderPreview();}
+function setFmt(id){fmt=FMTS.find(f=>f.id===id);renderFmts();renderPreview();}
+
+function download(){
+  const c=getContent();
+  if(!c){alert(lang==='de'?'Bitte eine Kategorie wählen.':'Please select a category.');return;}
+  const b=new Blob([c],{type:'text/plain'});
+  const u=URL.createObjectURL(b);
+  const a=document.createElement('a');
+  a.href=u;a.download=`blocklist_${new Date().toISOString().split('T')[0]}.${fmt.ext}`;a.click();
+  URL.revokeObjectURL(u);
+  const btn=document.getElementById('t-dl');
+  const orig=btn.textContent;
+  btn.textContent='✓ Downloaded!';
+  setTimeout(()=>btn.textContent=orig,2000);
+}
+
+function copyClip(){
+  const c=getContent();
+  if(!c){alert(lang==='de'?'Bitte eine Kategorie wählen.':'Please select a category.');return;}
+  navigator.clipboard.writeText(c).then(()=>{
+    const btn=document.getElementById('t-copy');
+    btn.textContent=I18N[lang].copied;
+    setTimeout(()=>btn.textContent=I18N[lang].copy,1800);
+    document.getElementById('btn-copy').classList.add('copied');
+    setTimeout(()=>document.getElementById('btn-copy').classList.remove('copied'),1800);
+  });
+}
+
+function openIssue(){
+  const body=encodeURIComponent(`## Domain/Category Suggestion\n\n**Domain(s):**\n\n\`\`\`\nexample.com\n\`\`\`\n\n**Category:**\n\n**Reason:**\n`);
+  const title=encodeURIComponent('[suggestion] New domain or category');
+  window.open(`https://github.com/DanielEnki420/dns-blocklist-builder/issues/new?title=${title}&body=${body}`,'_blank','noopener,noreferrer');
+}
+
+renderCats();renderFmts();renderPreview();
+</script>
+</body>
+</html>
