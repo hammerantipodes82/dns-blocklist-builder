@@ -1,0 +1,45 @@
+# Contributing to DNS Blocklist Builder
+
+Thank you for helping improve this project! There are several ways to contribute.
+
+## Suggesting a Domain
+
+1. Go to [Issues → New Issue](https://github.com/DanielEnki420/dns-blocklist-builder/issues/new)
+2. Use the title: `[suggestion] example.com`
+3. Include:
+   - The domain(s) to add
+   - Which category it belongs to
+   - A brief reason / source (news article, fact-check, etc.)
+
+**Please do not suggest domains without a verifiable reason.**
+
+## Suggesting a New Category
+
+Open an issue with the title `[category] Category Name` and describe:
+- What kind of sites the category covers
+- At least 10 example domains with sources
+
+## Reporting an Incorrect Domain
+
+If a domain was added by mistake (e.g. legitimate site), open an issue with:
+- Title: `[remove] example.com`
+- Why it should be removed
+
+## Pull Requests
+
+Pull requests for domain additions are welcome. Please:
+- Edit only the `CATS` array in `index.html`
+- Keep one category per PR if possible
+- Add domains alphabetically within a category
+- Include sources in the PR description
+
+## Code Contributions
+
+For UI/code changes:
+- Open an issue first to discuss the change
+- Keep the tool dependency-free and offline-capable
+- Do not add external scripts, fonts, or trackers
+
+## Code of Conduct
+
+Be respectful. Domain inclusion decisions are based on documented evidence of disinformation, propaganda, or harmful content — not political opinion.
