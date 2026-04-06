@@ -1,9 +1,11 @@
 # ============================================================
 # DNS Blocklist Builder – All Categories
 # Format: AdGuard Home
-# Generated: 2026-03-30
-# Domains: 402
+# Generated: 2026-04-06
+# Categories: 11
+# Domains: 455
 # Source: https://github.com/DanielEnki420/dns-blocklist-builder
+# Issues: https://github.com/DanielEnki420/dns-blocklist-builder/issues
 # ============================================================
 ||100percentfedup.com^
 ||33across.com^
@@ -21,13 +23,16 @@
 ||advertising.com^
 ||aerzte-fuer-aufklaerung.de^
 ||ageofautism.com^
+||alles-schallundrauch.blogspot.com^
 ||amazon-adsystem.com^
+||americafirstpolicy.com^
 ||americanthinker.com^
 ||amren.com^
 ||anna-news.info^
 ||ansage.org^
 ||apolut.net^
 ||appnexus.com^
+||ascensionwithearth.com^
 ||auf1.info^
 ||auf1.tv^
 ||baltnews.com^
@@ -62,13 +67,17 @@
 ||chinamil.com.cn^
 ||chinanews.com.cn^
 ||chrome-update.net^
+||churchmilitant.com^
 ||cleanmypc.com^
 ||clearwisdom.net^
 ||climate.news^
 ||climateaudit.org^
 ||climatechangedispatch.com^
+||climateconversation.wordpress.com^
 ||climatedepot.com^
 ||climaterealism.com^
+||climaterealismblogs.com^
+||climatesciencenews.com^
 ||co2coalition.org^
 ||co2is.life^
 ||co2science.org^
@@ -83,6 +92,7 @@
 ||corona-transition.org^
 ||counter-currents.com^
 ||covidvaccineinjuries.com^
+||covidvax.live^
 ||cri.cn^
 ||criteo.com^
 ||criteo.net^
@@ -96,8 +106,12 @@
 ||dailywire.com^
 ||de.minghui.org^
 ||de.rt.com^
+||demokratischer-widerstand.de^
 ||der-dritte-weg.de^
 ||deswegen.net^
+||dinar-guru.com^
+||dinardetectives.com^
+||dinarrecaps.com^
 ||discernreport.com^
 ||doubleclick.net^
 ||doubleverify.com^
@@ -108,6 +122,7 @@
 ||e-news.su^
 ||ecns.cn^
 ||ef-magazin.de^
+||eigentumlich-frei.de^
 ||eike-klima-energie.eu^
 ||eingeschenkt.tv^
 ||en.minghui.org^
@@ -135,6 +150,7 @@
 ||exelator.com^
 ||exposenews.co.uk^
 ||exxpress.at^
+||fake-av-alert.com^
 ||falundafa.org^
 ||firefox-update.org^
 ||fixerrorsnow.com^
@@ -146,6 +162,8 @@
 ||freie-sachsen.de^
 ||freie-welt.net^
 ||friendsofscience.org^
+||fulcrumnews.com^
+||gaia.com^
 ||geopolitika.news^
 ||globalresearch.ca^
 ||globaltimes.cn^
@@ -156,15 +174,18 @@
 ||googlesyndication.com^
 ||greenmedinfo.com^
 ||guancha.cn^
+||hannity.com^
 ||healthimpactnews.com^
 ||heartland.org^
 ||heimatkurier.at^
 ||henrymakow.com^
+||hintergrund.de^
 ||hk.epochtimes.com^
 ||hkcd.com^
 ||hockeyschtick.blogspot.com^
 ||huanqiu.com^
 ||humansarefree.com^
+||humansofwoke.com^
 ||identitaere.at^
 ||immediate-edge.co^
 ||immediate-iplex.com^
@@ -177,12 +198,17 @@
 ||inforeactor.ru^
 ||infowars.com^
 ||infowars.net^
+||inotv.rt.com^
+||inteldinarchronicles.blogspot.com^
 ||investmentwatchblog.com^
+||iolo.com^
 ||jabs.news^
+||java-update.org^
 ||joannenova.com.au^
 ||journalistenwatch.com^
 ||junge-freiheit.de^
 ||katehon.com^
+||kenfm.de^
 ||kla.tv^
 ||kopp-online.com^
 ||kopp-verlag.de^
@@ -193,14 +219,17 @@
 ||legitim.ch^
 ||life.ru^
 ||lifesitenews.com^
+||lifezette.com^
 ||lijit.com^
 ||liveintent.com^
 ||lotame.com^
+||m-online.net^
 ||mackeeper.com^
 ||mathtag.com^
 ||mediamath.com^
 ||mercola.com^
 ||metamask-recovery.net^
+||michael-mannheimer.net^
 ||microsoftsupport-helpline.com^
 ||minghui.org^
 ||mmnews.de^
@@ -214,6 +243,7 @@
 ||nationalvanguard.org^
 ||naturalnews.com^
 ||neonnettle.com^
+||neue-debatte.com^
 ||neulandrebellen.de^
 ||news-front.info^
 ||news.cn^
@@ -221,6 +251,7 @@
 ||newspunch.com^
 ||nft-profit.app^
 ||noclimate.org^
+||notalotofpeopleknowthat.wordpress.com^
 ||notrickszone.com^
 ||ntd.com^
 ||ntd.tv^
@@ -237,18 +268,25 @@
 ||opposition24.com^
 ||orientalreview.org^
 ||outbrain.com^
+||panda-online.org^
+||pandaily.com^
+||patriotpulse.net^
+||patriotsnet.com^
 ||pc-fix-speed.com^
 ||pc-optimizer-pro.com^
 ||pcspeedcat.com^
 ||people.cn^
 ||people.com.cn^
 ||phantom-wallet-support.com^
+||philosophia-perennis.com^
 ||pi-news.net^
+||pjmedia.com^
 ||pladaily.com.cn^
 ||polit.info^
 ||politikstube.de^
 ||politros.com^
 ||prepareforchange.net^
+||prepperwebsite.com^
 ||principia-scientific.com^
 ||prisonplanet.com^
 ||profit-edge.com^
@@ -257,16 +295,21 @@
 ||pureinsight.org^
 ||qagg.news^
 ||qalerts.app^
+||qanon.pub^
+||qmap.pub^
 ||qpress.de^
 ||qstheory.cn^
 ||quantserve.com^
 ||quantum-ai.app^
 ||querdenken-711.de^
 ||questioningcovid.com^
+||radii.co^
 ||radixjournal.com^
 ||rclutz.com^
 ||realamericasvoice.com^
 ||realclimatescience.com^
+||realnews24.com^
+||realnewsrightnow.com^
 ||realtribune.ru^
 ||redstate.com^
 ||registrycleanerkit.com^
@@ -283,6 +326,7 @@
 ||rhythmone.com^
 ||ria.ru^
 ||riafan.ru^
+||rianovosti.pro^
 ||rlcdn.com^
 ||rt.com^
 ||rt.de^
@@ -307,6 +351,7 @@
 ||sgtreport.com^
 ||sharethrough.com^
 ||shine.cn^
+||sixthtone.com^
 ||slavyangrad.org^
 ||slaynews.com^
 ||smartadserver.com^
@@ -339,12 +384,14 @@
 ||tass.com^
 ||tass.ru^
 ||teads.tv^
+||tele.bio^
 ||tesler.app^
 ||the-highwire.com^
 ||the-news-spy.com^
 ||thebl.com^
 ||thebl.tv^
 ||theblaze.com^
+||thedailybeast.ru^
 ||theepochtimes.com^
 ||theepochtimes.fr^
 ||thefederalist.com^
@@ -355,18 +402,23 @@
 ||thepaper.cn^
 ||thepostmillennial.com^
 ||therightstuff.biz^
+||thestorm.pub^
 ||thinktwice.com^
 ||tichyseinblick.de^
 ||tkp.at^
 ||topwar.ru^
+||townhall.com^
+||tpusa.com^
 ||transition-news.org^
 ||triplelift.com^
+||trumpist.com^
 ||trust-wallet-support.com^
 ||tsargrad.tv^
 ||turn.com^
 ||tw.epochtimes.com^
 ||ufosightingsdaily.com^
 ||ukcolumn.org^
+||ukdeclaration.org^
 ||ukraina.ru^
 ||uncensored.co.nz^
 ||uncut-news.ch^
@@ -374,6 +426,8 @@
 ||unz.com^
 ||unzensuriert.de^
 ||update-required.net^
+||vaccinationinformationnetwork.com^
+||vaccine-injury.info^
 ||vaccinedamage.news^
 ||vaccineimpact.com^
 ||vaxtruth.org^
@@ -399,6 +453,7 @@
 ||wochenblick.at^
 ||worlddoctorsalliance.com^
 ||worldtruth.tv^
+||xhpfmapi.com^
 ||xinhua.net^
 ||xinhuanet.com^
 ||xuexi.cn^

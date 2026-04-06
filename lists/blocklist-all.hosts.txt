@@ -1,9 +1,11 @@
 # ============================================================
 # DNS Blocklist Builder – All Categories
 # Format: hosts (/etc/hosts)
-# Generated: 2026-03-30
-# Domains: 402
+# Generated: 2026-04-06
+# Categories: 11
+# Domains: 455
 # Source: https://github.com/DanielEnki420/dns-blocklist-builder
+# Issues: https://github.com/DanielEnki420/dns-blocklist-builder/issues
 # ============================================================
 0.0.0.0 100percentfedup.com
 0.0.0.0 33across.com
@@ -21,13 +23,16 @@
 0.0.0.0 advertising.com
 0.0.0.0 aerzte-fuer-aufklaerung.de
 0.0.0.0 ageofautism.com
+0.0.0.0 alles-schallundrauch.blogspot.com
 0.0.0.0 amazon-adsystem.com
+0.0.0.0 americafirstpolicy.com
 0.0.0.0 americanthinker.com
 0.0.0.0 amren.com
 0.0.0.0 anna-news.info
 0.0.0.0 ansage.org
 0.0.0.0 apolut.net
 0.0.0.0 appnexus.com
+0.0.0.0 ascensionwithearth.com
 0.0.0.0 auf1.info
 0.0.0.0 auf1.tv
 0.0.0.0 baltnews.com
@@ -62,13 +67,17 @@
 0.0.0.0 chinamil.com.cn
 0.0.0.0 chinanews.com.cn
 0.0.0.0 chrome-update.net
+0.0.0.0 churchmilitant.com
 0.0.0.0 cleanmypc.com
 0.0.0.0 clearwisdom.net
 0.0.0.0 climate.news
 0.0.0.0 climateaudit.org
 0.0.0.0 climatechangedispatch.com
+0.0.0.0 climateconversation.wordpress.com
 0.0.0.0 climatedepot.com
 0.0.0.0 climaterealism.com
+0.0.0.0 climaterealismblogs.com
+0.0.0.0 climatesciencenews.com
 0.0.0.0 co2coalition.org
 0.0.0.0 co2is.life
 0.0.0.0 co2science.org
@@ -83,6 +92,7 @@
 0.0.0.0 corona-transition.org
 0.0.0.0 counter-currents.com
 0.0.0.0 covidvaccineinjuries.com
+0.0.0.0 covidvax.live
 0.0.0.0 cri.cn
 0.0.0.0 criteo.com
 0.0.0.0 criteo.net
@@ -96,8 +106,12 @@
 0.0.0.0 dailywire.com
 0.0.0.0 de.minghui.org
 0.0.0.0 de.rt.com
+0.0.0.0 demokratischer-widerstand.de
 0.0.0.0 der-dritte-weg.de
 0.0.0.0 deswegen.net
+0.0.0.0 dinar-guru.com
+0.0.0.0 dinardetectives.com
+0.0.0.0 dinarrecaps.com
 0.0.0.0 discernreport.com
 0.0.0.0 doubleclick.net
 0.0.0.0 doubleverify.com
@@ -108,6 +122,7 @@
 0.0.0.0 e-news.su
 0.0.0.0 ecns.cn
 0.0.0.0 ef-magazin.de
+0.0.0.0 eigentumlich-frei.de
 0.0.0.0 eike-klima-energie.eu
 0.0.0.0 eingeschenkt.tv
 0.0.0.0 en.minghui.org
@@ -135,6 +150,7 @@
 0.0.0.0 exelator.com
 0.0.0.0 exposenews.co.uk
 0.0.0.0 exxpress.at
+0.0.0.0 fake-av-alert.com
 0.0.0.0 falundafa.org
 0.0.0.0 firefox-update.org
 0.0.0.0 fixerrorsnow.com
@@ -146,6 +162,8 @@
 0.0.0.0 freie-sachsen.de
 0.0.0.0 freie-welt.net
 0.0.0.0 friendsofscience.org
+0.0.0.0 fulcrumnews.com
+0.0.0.0 gaia.com
 0.0.0.0 geopolitika.news
 0.0.0.0 globalresearch.ca
 0.0.0.0 globaltimes.cn
@@ -156,15 +174,18 @@
 0.0.0.0 googlesyndication.com
 0.0.0.0 greenmedinfo.com
 0.0.0.0 guancha.cn
+0.0.0.0 hannity.com
 0.0.0.0 healthimpactnews.com
 0.0.0.0 heartland.org
 0.0.0.0 heimatkurier.at
 0.0.0.0 henrymakow.com
+0.0.0.0 hintergrund.de
 0.0.0.0 hk.epochtimes.com
 0.0.0.0 hkcd.com
 0.0.0.0 hockeyschtick.blogspot.com
 0.0.0.0 huanqiu.com
 0.0.0.0 humansarefree.com
+0.0.0.0 humansofwoke.com
 0.0.0.0 identitaere.at
 0.0.0.0 immediate-edge.co
 0.0.0.0 immediate-iplex.com
@@ -177,12 +198,17 @@
 0.0.0.0 inforeactor.ru
 0.0.0.0 infowars.com
 0.0.0.0 infowars.net
+0.0.0.0 inotv.rt.com
+0.0.0.0 inteldinarchronicles.blogspot.com
 0.0.0.0 investmentwatchblog.com
+0.0.0.0 iolo.com
 0.0.0.0 jabs.news
+0.0.0.0 java-update.org
 0.0.0.0 joannenova.com.au
 0.0.0.0 journalistenwatch.com
 0.0.0.0 junge-freiheit.de
 0.0.0.0 katehon.com
+0.0.0.0 kenfm.de
 0.0.0.0 kla.tv
 0.0.0.0 kopp-online.com
 0.0.0.0 kopp-verlag.de
@@ -193,14 +219,17 @@
 0.0.0.0 legitim.ch
 0.0.0.0 life.ru
 0.0.0.0 lifesitenews.com
+0.0.0.0 lifezette.com
 0.0.0.0 lijit.com
 0.0.0.0 liveintent.com
 0.0.0.0 lotame.com
+0.0.0.0 m-online.net
 0.0.0.0 mackeeper.com
 0.0.0.0 mathtag.com
 0.0.0.0 mediamath.com
 0.0.0.0 mercola.com
 0.0.0.0 metamask-recovery.net
+0.0.0.0 michael-mannheimer.net
 0.0.0.0 microsoftsupport-helpline.com
 0.0.0.0 minghui.org
 0.0.0.0 mmnews.de
@@ -214,6 +243,7 @@
 0.0.0.0 nationalvanguard.org
 0.0.0.0 naturalnews.com
 0.0.0.0 neonnettle.com
+0.0.0.0 neue-debatte.com
 0.0.0.0 neulandrebellen.de
 0.0.0.0 news-front.info
 0.0.0.0 news.cn
@@ -221,6 +251,7 @@
 0.0.0.0 newspunch.com
 0.0.0.0 nft-profit.app
 0.0.0.0 noclimate.org
+0.0.0.0 notalotofpeopleknowthat.wordpress.com
 0.0.0.0 notrickszone.com
 0.0.0.0 ntd.com
 0.0.0.0 ntd.tv
@@ -237,18 +268,25 @@
 0.0.0.0 opposition24.com
 0.0.0.0 orientalreview.org
 0.0.0.0 outbrain.com
+0.0.0.0 panda-online.org
+0.0.0.0 pandaily.com
+0.0.0.0 patriotpulse.net
+0.0.0.0 patriotsnet.com
 0.0.0.0 pc-fix-speed.com
 0.0.0.0 pc-optimizer-pro.com
 0.0.0.0 pcspeedcat.com
 0.0.0.0 people.cn
 0.0.0.0 people.com.cn
 0.0.0.0 phantom-wallet-support.com
+0.0.0.0 philosophia-perennis.com
 0.0.0.0 pi-news.net
+0.0.0.0 pjmedia.com
 0.0.0.0 pladaily.com.cn
 0.0.0.0 polit.info
 0.0.0.0 politikstube.de
 0.0.0.0 politros.com
 0.0.0.0 prepareforchange.net
+0.0.0.0 prepperwebsite.com
 0.0.0.0 principia-scientific.com
 0.0.0.0 prisonplanet.com
 0.0.0.0 profit-edge.com
@@ -257,16 +295,21 @@
 0.0.0.0 pureinsight.org
 0.0.0.0 qagg.news
 0.0.0.0 qalerts.app
+0.0.0.0 qanon.pub
+0.0.0.0 qmap.pub
 0.0.0.0 qpress.de
 0.0.0.0 qstheory.cn
 0.0.0.0 quantserve.com
 0.0.0.0 quantum-ai.app
 0.0.0.0 querdenken-711.de
 0.0.0.0 questioningcovid.com
+0.0.0.0 radii.co
 0.0.0.0 radixjournal.com
 0.0.0.0 rclutz.com
 0.0.0.0 realamericasvoice.com
 0.0.0.0 realclimatescience.com
+0.0.0.0 realnews24.com
+0.0.0.0 realnewsrightnow.com
 0.0.0.0 realtribune.ru
 0.0.0.0 redstate.com
 0.0.0.0 registrycleanerkit.com
@@ -283,6 +326,7 @@
 0.0.0.0 rhythmone.com
 0.0.0.0 ria.ru
 0.0.0.0 riafan.ru
+0.0.0.0 rianovosti.pro
 0.0.0.0 rlcdn.com
 0.0.0.0 rt.com
 0.0.0.0 rt.de
@@ -307,6 +351,7 @@
 0.0.0.0 sgtreport.com
 0.0.0.0 sharethrough.com
 0.0.0.0 shine.cn
+0.0.0.0 sixthtone.com
 0.0.0.0 slavyangrad.org
 0.0.0.0 slaynews.com
 0.0.0.0 smartadserver.com
@@ -339,12 +384,14 @@
 0.0.0.0 tass.com
 0.0.0.0 tass.ru
 0.0.0.0 teads.tv
+0.0.0.0 tele.bio
 0.0.0.0 tesler.app
 0.0.0.0 the-highwire.com
 0.0.0.0 the-news-spy.com
 0.0.0.0 thebl.com
 0.0.0.0 thebl.tv
 0.0.0.0 theblaze.com
+0.0.0.0 thedailybeast.ru
 0.0.0.0 theepochtimes.com
 0.0.0.0 theepochtimes.fr
 0.0.0.0 thefederalist.com
@@ -355,18 +402,23 @@
 0.0.0.0 thepaper.cn
 0.0.0.0 thepostmillennial.com
 0.0.0.0 therightstuff.biz
+0.0.0.0 thestorm.pub
 0.0.0.0 thinktwice.com
 0.0.0.0 tichyseinblick.de
 0.0.0.0 tkp.at
 0.0.0.0 topwar.ru
+0.0.0.0 townhall.com
+0.0.0.0 tpusa.com
 0.0.0.0 transition-news.org
 0.0.0.0 triplelift.com
+0.0.0.0 trumpist.com
 0.0.0.0 trust-wallet-support.com
 0.0.0.0 tsargrad.tv
 0.0.0.0 turn.com
 0.0.0.0 tw.epochtimes.com
 0.0.0.0 ufosightingsdaily.com
 0.0.0.0 ukcolumn.org
+0.0.0.0 ukdeclaration.org
 0.0.0.0 ukraina.ru
 0.0.0.0 uncensored.co.nz
 0.0.0.0 uncut-news.ch
@@ -374,6 +426,8 @@
 0.0.0.0 unz.com
 0.0.0.0 unzensuriert.de
 0.0.0.0 update-required.net
+0.0.0.0 vaccinationinformationnetwork.com
+0.0.0.0 vaccine-injury.info
 0.0.0.0 vaccinedamage.news
 0.0.0.0 vaccineimpact.com
 0.0.0.0 vaxtruth.org
@@ -399,6 +453,7 @@
 0.0.0.0 wochenblick.at
 0.0.0.0 worlddoctorsalliance.com
 0.0.0.0 worldtruth.tv
+0.0.0.0 xhpfmapi.com
 0.0.0.0 xinhua.net
 0.0.0.0 xinhuanet.com
 0.0.0.0 xuexi.cn
