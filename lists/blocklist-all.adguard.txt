@@ -1,7 +1,7 @@
 # ============================================================
 # DNS Blocklist Builder – All Categories
 # Format: AdGuard Home
-# Generated: 2026-04-13
+# Generated: 2026-04-20
 # Categories: 11
 # Domains: 455
 # Source: https://github.com/DanielEnki420/dns-blocklist-builder
